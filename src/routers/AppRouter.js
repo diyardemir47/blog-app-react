@@ -19,7 +19,7 @@ const AppRouter = () => {
                     <Route path="/" component={HomePage} exact/>
                     <Route path="/blogs" component={BlogListPage} exact/>
                     <Route path="/create" component={AddBlogPage}/>
-                    <Route path="/edit/:id" component={EditBlogPage} />
+                    <Route path="/edit/:id" component={EditBlogPage}/>
                     <Route path="/blogs/:id" component={BlogDetailsPage} />
                     <Route path="/contact" component={ContactPage} />
                     <Route component={NotFoundPage} />

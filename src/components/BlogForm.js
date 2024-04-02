@@ -5,14 +5,12 @@ export default class BlogForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             title: props.blog? props.blog.title: '',
-            description: props.blog? props.blog.description:'',
+            description: props.blog ? props.blog.description: '',
             error: ''
         }
     }
-
-  
 
     onTitleChange = (e) => {
         const title = e.target.value;
