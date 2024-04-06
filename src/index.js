@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import AppRouter from './routers/AppRouter';
+import AppRouter, {history} from './routers/AppRouter';
 import "./App.css"
 import configureStore from './store/configureStore';
-import { getBlogsFromDatabase  } from './actions/blogs'
+import { clearBlogs, getBlogsFromDatabase  } from './actions/blogs'
 import {firebase} from './firebase/firebaseConfig'
+import { loginAction,logoutAction } from './actions/auth';
 
 const store = configureStore();
 
@@ -18,17 +19,30 @@ const result = (
 
 ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
 
-store.dispatch(getBlogsFromDatabase()).then(() => {
-    ReactDOM.render(result, document.getElementById('root'));
-})
+let isRendered = false;
+const renderApp = () => {
+    if(!isRendered) {
+        ReactDOM.render(result, document.getElementById('root'));
+        isRendered = true;
+    }
+}
 
 
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
-        console.log("login yapılmış");
-        console.log(user);
+        store.dispatch(loginAction(user.uid));
+        store.dispatch(getBlogsFromDatabase()).then(() => {
+            renderApp();
+            if (history.location.pathname === '/') {
+                history.push('/blogs');
+            }
+        })
+       
     } else {
-        console.log("kullanıcı çıkış yapmış");
+        store.dispatch(logoutAction());
+        store.dispatch(clearBlogs());
+        renderApp();
+        history.push('/');
     }
 })
 

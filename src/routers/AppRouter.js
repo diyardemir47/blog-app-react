@@ -4,14 +4,17 @@ import BlogListPage from '../components/BlogListPage'
 import BlogDetailsPage from '../components/BlogDetailsPage'
 import ContactPage from '../components/ContactPage'
 import NotFoundPage from '../components/NotFoundPage'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import AddBlogPage from '../components/AddBlogPage'
 import EditBlogPage from '../components/EditBlogPage'
 import LoginPage from '../components/LoginPage'
+import createHistory from 'history/createBrowserHistory';
+
+export const history = createHistory();
 
 const AppRouter = () => {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <div>
                 <Header></Header>
                 <Switch>
@@ -24,7 +27,7 @@ const AppRouter = () => {
                     <Route component={NotFoundPage} />
                 </Switch>
             </div>
-        </BrowserRouter>
+        </Router>
     )
 }
 
