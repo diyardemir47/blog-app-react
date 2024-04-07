@@ -1,14 +1,17 @@
-import React from 'react'
-import {connect} from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 import BlogListItem from './BlogListItem';
+import './BlogList.css'; // CSS dosyasını içe aktarın
 
 const BlogList = (props) => {
     return (
-        <ul>
-            {props.blogs.map(blog => {
-                return <BlogListItem key={blog.id} {...blog} />
-            })}
-        </ul>
+        <div className="scrollbar">
+            <ul>
+                {props.blogs.map(blog => {
+                    return <BlogListItem key={blog.id} {...blog} />
+                })}
+            </ul>
+        </div>
     )
 }
 
@@ -18,6 +21,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-
-// Higher Order Component (HOC)
 export default connect(mapStateToProps)(BlogList);

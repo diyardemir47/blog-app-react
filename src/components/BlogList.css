@@ -1,0 +1,22 @@
+.scrollbar {
+    max-height: 600px; /* Scrollbar'ın maksimum yüksekliğini ayarlayın */
+    overflow-y: auto; /* Yalnızca dikey bir scrollbar gösterin */
+}
+
+/* İstenirse dikey scrollbar'ın stillerini daha fazla özelleştirebilirsiniz */
+.scrollbar::-webkit-scrollbar {
+    width: 8px; /* Scrollbar genişliği */
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Scrollbar izleme rengi */
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background: #888; /* Scrollbar gövdesi rengi */
+    border-radius: 4px; /* Scrollbar kenar yarıçapı */
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Scrollbar üzerine gelindiğinde rengi */
+}
