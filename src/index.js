@@ -5,9 +5,9 @@ import * as serviceWorker from './serviceWorker';
 import AppRouter, {history} from './routers/AppRouter';
 import "./App.css"
 import configureStore from './store/configureStore';
-import { clearBlogs, getBlogsFromDatabase  } from './actions/blogs'
+import { getBlogsFromDatabase, clearBlogs  } from './actions/blogs'
 import {firebase} from './firebase/firebaseConfig'
-import { loginAction,logoutAction } from './actions/auth';
+import { loginAction, logoutAction } from './actions/auth';
 
 const store = configureStore();
 
@@ -26,7 +26,6 @@ const renderApp = () => {
         isRendered = true;
     }
 }
-
 
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {

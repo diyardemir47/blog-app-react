@@ -4,10 +4,10 @@ const authReducer = (state = authState, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {
-                uid:action.uid
+                uid: action.uid
             }
-            case 'LOGOUT':
-                return {};
+        case 'LOGOUT':
+            return {};
         default:
             return state
     }

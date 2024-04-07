@@ -6,9 +6,10 @@ export const addBlog = (blog) => ({
 })
 
 export const addBlogToDatabase = (blogData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         const { title='', description='',dateAdded=0 } = blogData;
-        const blog = {title,description,dateAdded};
+        const blog = {title,description,dateAdded,uid};
 
         database.ref("blogs").push(blog).then((res) => {
             dispatch(addBlog({
@@ -52,15 +53,21 @@ export const setBlogs = (blogs) => ({
 })
 
 export const getBlogsFromDatabase = () => {
-    return (dispatch) => {
+    return (dispatch,getState) => {
+        const uid = getState().auth.uid;
         return database.ref("blogs").once("value").then((snapshot) => {
             const blogs = [];
 
             snapshot.forEach((blog) => {
-                blogs.push({
-                    id: blog.key,
-                    ...blog.val()
-                })
+                const result = blog.val();
+
+                if (result.uid == uid) {
+                    blogs.push({
+                        id: blog.key,
+                        ...result
+                    })
+                }
+
             })
 
             dispatch(setBlogs(blogs));
@@ -69,6 +76,5 @@ export const getBlogsFromDatabase = () => {
 }
 
 export const clearBlogs = () => ({
-    type: "CLEAR_BLOGS",
-   
+    type: "CLEAR_BLOGS"
 })
